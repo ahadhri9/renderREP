@@ -1,0 +1,22 @@
+{
+  "name": "node",
+  "version": "16.14.0",
+  "description": "renderapp webhooks",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahadhri9/renderREP.git"
+  },
+  "author": "achraf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahadhri9/renderREP/issues"
+  },
+  "homepage": "https://github.com/ahadhri9/renderREP#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
