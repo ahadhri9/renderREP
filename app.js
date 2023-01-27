@@ -80,7 +80,7 @@ return data
       params: req.params,
       body: req.body,
     }
-      console.log(msg)
+      //console.log(msg)
       const reservationID = msg.body.reservationID
       data = await getReservationInfo(reservationID)
       switch (msg.body.status) {
