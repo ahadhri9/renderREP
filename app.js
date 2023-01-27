@@ -87,19 +87,9 @@ return data
         case 'checked_out':
           console.log(data)
           break;
-        case 'confirmed':
-          
-          break;
-        case 'canceled':
-          
-          break;
         case 'checked_in':
-          
+          console.log(data)
           break;
-        case 'no_show':
-                    
-          break;
-      
         default:
           console.warn("unsupported type,",msg.body.status);
           break;
