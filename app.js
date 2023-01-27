@@ -5,6 +5,7 @@ const app = express()
 const requestp = require('request-promise')
 const { info } = require('console')
 var accessToken
+const https = require('https');
 app.use(express.json())
 
 
@@ -82,6 +83,7 @@ return data
     }
       //console.log(msg)
       const reservationID = msg.body.reservationID
+      console.log(reservationID)
       data = await getReservationInfo(reservationID)
       switch (msg.body.status) {
         case 'checked_out':
