@@ -5,7 +5,6 @@ const app = express()
 const requestp = require('request-promise')
 const { info } = require('console')
 var accessToken
-const https = require('https');
 app.use(express.json())
 
 
@@ -81,17 +80,26 @@ return data
       params: req.params,
       body: req.body,
     }
-      //console.log(msg)
+      console.log(msg)
       const reservationID = msg.body.reservationID
-      console.log(reservationID)
       data = await getReservationInfo(reservationID)
       switch (msg.body.status) {
         case 'checked_out':
           console.log(data)
           break;
-        case 'checked_in':
-          console.log(data)
+        case 'confirmed':
+          
           break;
+        case 'canceled':
+          
+          break;
+        case 'checked_in':
+          
+          break;
+        case 'no_show':
+                    
+          break;
+      
         default:
           console.warn("unsupported type,",msg.body.status);
           break;
