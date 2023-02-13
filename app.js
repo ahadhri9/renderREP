@@ -57,7 +57,7 @@ function getTokens(callback) {
     });
   });
   req.on('error', callback);
-  req.write('grant_type=client_credentials&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET');
+  req.write('grant_type=client_credentials&client_id=live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P&client_secret=r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl');
   req.end();
 }
 
