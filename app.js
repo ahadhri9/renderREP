@@ -33,7 +33,7 @@ const checkRefreshToken = async (clientId, clientSecret) => {
     console.error(error);
   }
 }
-checkRefreshToken(clientId, clientSecret)
+getNewRefreshToken(clientId, clientSecret);
 setInterval(()=>checkRefreshToken(clientId, clientSecret),3500000);
 
 
