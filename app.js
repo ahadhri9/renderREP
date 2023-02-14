@@ -2,59 +2,70 @@ const express = require("express");
 const app = express();
 const fs = require('fs');
 import ('node-fetch')
-rawdata=fs.readFileSync('token.json')
-  jsonToken=JSON.parse(rawdata);
-  refreshToken = jsonToken.refreshToken
+
 
 const port = process.env.PORT || 3001;
 app.use(express.json())
 
 const clientId = 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P';
 const clientSecret = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
-const options = {
-  method: 'POST',
-  headers: {
-    'Cookie': 'acessa_session=cf6c3aa21587859cce8fc8f6fc3031e5c9c32f64; HotelLng=en',
-    'host': 'hotels.cloudbeds.com',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    grant_type: 'refresh_token',
-    client_id: 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P',
-    client_secret: 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl',
-    refresh_token: refreshToken
-  }),
-  credentials: 'include'
-};
-//refreshKeys : regarde s'il existe deja un refreshToken, si oui, génére une nouvelle paire de token, sinon exit.
-const getNewRefreshToken = async (clientId, clientSecret) => {
-  const response = await fetch('https://hotels.cloudbeds.com/api/v1.1/access_token', options)
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-  const data = await response.json();
-  console.log(data)
-  return data;
+async function getNewAccessToken(refreshToken) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Cookie': 'acessa_session=cf6c3aa21587859cce8fc8f6fc3031e5c9c32f64; HotelLng=en',
+      'host': 'hotels.cloudbeds.com',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      grant_type: 'refresh_token',
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      refresh_token: refreshToken
+    }),
+    credentials: 'include'
+  };
   
+  const response = await fetch('https://hotels.cloudbeds.com/api/v1.1/access_token', options);
+  const data = await response.json();
+  
+  if (response.ok) {
+    const tokenData = fs.readFileSync('token.json');
+    const token = JSON.parse(tokenData);
+    
+    token.access_token = data.access_token;
+    token.refresh_token = data.refresh_token;
+    
+    fs.writeFileSync('token.json', JSON.stringify(token));
+    
+    console.log('New access token generated');
+  } else {
+    console.error(data.error_description);
+  }
 }
 
-const checkRefreshToken = async (clientId, clientSecret) => {
+async function checkAccessToken() {
   try {
     const tokenData = fs.readFileSync('token.json');
     const token = JSON.parse(tokenData);
-    if (!token.refresh_token) {
-      const newTokens = await getNewRefreshToken(clientId, clientSecret);
-      token.refresh_token = newTokens.refresh_token;
-      token.access_token = newTokens.access_token;
-      fs.writeFileSync('token.json', JSON.stringify(newTokens));
-      console.log('tokens: '+ newTokens)
+    
+    const accessToken = token.access_token;
+    const refreshToken = token.refresh_token;
+    const expiresIn = token.expires_in;
+    const now = new Date();
+    
+    if (!accessToken || !refreshToken || !expiresIn || new Date(expiresIn) < now) {
+      await getNewAccessToken(refreshToken);
+    } else {
+      console.log('Access token is still valid');
     }
   } catch (error) {
     console.error(error);
   }
 }
-getNewRefreshToken(clientId, clientSecret)
-setInterval(()=>checkRefreshToken(clientId, clientSecret),3500000);
+
+// Call this function periodically to check if the access token has expired and generate a new one if needed
+setInterval(checkAccessToken, 1000 * 60 * 30); // Check every 30 minutes
 
 
 app.all("/*", (req, res) => {
