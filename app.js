@@ -7,8 +7,8 @@ import ('node-fetch')
 const port = process.env.PORT || 3001;
 app.use(express.json())
 
-const clientId = 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P';
-const clientSecret = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
+const CLIENT_ID = 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P';
+const CLIENT_SECRET = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
 async function getNewAccessToken(refreshToken) {
   const options = {
     method: 'POST',
