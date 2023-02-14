@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+const fs = require('fs')
+const request = require('request')
+const express = require('express')
+
 const port = process.env.PORT || 3001;
 app.use(express.json())
   //refreshKeys : regarde s'il existe deja un refreshToken, si oui, génére une nouvelle paire de token, sinon exit.
