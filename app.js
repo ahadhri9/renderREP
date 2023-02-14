@@ -17,10 +17,11 @@ async function getNewAccessToken(refreshToken) {
       'host': 'hotels.cloudbeds.com',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      refresh_token: refreshToken
+    FormData: JSON.stringify({
+      'grant_type': 'refresh_token',
+      'client_id': CLIENT_ID,
+      'client_secret': CLIENT_SECRET,
+      'refresh_token': refreshToken
     }),
     credentials: 'include'
   };
