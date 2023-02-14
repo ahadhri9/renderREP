@@ -17,12 +17,12 @@ async function getNewAccessToken(refreshToken) {
       'host': 'hotels.cloudbeds.com',
       'Content-Type': 'multipart/form-data'
     },
-    FormData: JSON.stringify({
+    FormData:{
       'grant_type': 'refresh_token',
       'client_id':  'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P',
       'client_secret': 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl',
       'refresh_token': refreshToken
-    }),
+    },
     credentials: 'include'
   };
   
