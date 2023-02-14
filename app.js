@@ -19,8 +19,8 @@ async function getNewAccessToken(refreshToken) {
     },
     FormData: JSON.stringify({
       'grant_type': 'refresh_token',
-      'client_id': CLIENT_ID,
-      'client_secret': CLIENT_SECRET,
+      'client_id':  'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P',
+      'client_secret': 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl',
       'refresh_token': refreshToken
     }),
     credentials: 'include'
