@@ -15,7 +15,7 @@ async function getNewAccessToken(refreshToken) {
     headers: {
       'Cookie': 'acessa_session=cf6c3aa21587859cce8fc8f6fc3031e5c9c32f64; HotelLng=en',
       'host': 'hotels.cloudbeds.com',
-      'Content-Type': 'application/json'
+      'Content-Type': 'multipart/form-data'
     },
     FormData: JSON.stringify({
       'grant_type': 'refresh_token',
