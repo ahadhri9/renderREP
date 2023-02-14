@@ -9,12 +9,25 @@ app.use(express.json())
 
 const clientId = 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P';
 const clientSecret = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
+const options = {
+  method: 'POST',
+  headers: {
+    'Cookie': 'acessa_session=cf6c3aa21587859cce8fc8f6fc3031e5c9c32f64; HotelLng=en',
+    'host': 'hotels.cloudbeds.com',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    grant_type: 'refresh_token',
+    client_id: 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P',
+    client_secret: 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl',
+    refresh_token: refreshToken
+  }),
+  credentials: 'include'
+};
 //refreshKeys : regarde s'il existe deja un refreshToken, si oui, génére une nouvelle paire de token, sinon exit.
 const getNewRefreshToken = async (clientId, clientSecret) => {
-  const response = await fetch(`https://api.cloudbeds.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=refresh_token`).then(response => {
-    console.log(response.headers.get('Content-Type'));
-    return response.text();
-  })
+  const response = await fetch('https://hotels.cloudbeds.com/api/v1.1/access_token', options)
+  .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error(error));
   const data = await response.json();
