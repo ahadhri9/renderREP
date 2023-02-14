@@ -7,27 +7,27 @@ import ('node-fetch')
 const port = process.env.PORT || 3001;
 app.use(express.json())
 async function getNewAccessToken(refreshToken) {
-var myHeaders = new Headers();
-myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
+  var myHeaders = new Headers();
+  myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
 
-var formdata = new FormData();
-formdata.append("grant_type", "refresh_token");
-formdata.append("client_id", "live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P");
-formdata.append("client_secret", "r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl");
-formdata.append("refresh_token", refreshToken);
+  var formdata = new FormData();
+  formdata.append("grant_type", "refresh_token");
+  formdata.append("client_id", "live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P");
+  formdata.append("client_secret", "r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl");
+  formdata.append("refresh_token", refreshToken);
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: formdata,
-  redirect: 'follow'
-};
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formdata,
+    redirect: 'follow'
+  };
 
-fetch("https://hotels.cloudbeds.com/api/v1.1/access_token", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-  if (response.ok) {
+  resulut = await fetch("https://hotels.cloudbeds.com/api/v1.1/access_token", requestOptions)
+    .then(response => response.text())
+    .catch(error => console.log('error', error));
+    
+  if (resulut) {
     const tokenData = fs.readFileSync('token.json');
     const token = JSON.parse(tokenData);
     token.access_token = result.access_token;
@@ -36,7 +36,8 @@ fetch("https://hotels.cloudbeds.com/api/v1.1/access_token", requestOptions)
     fs.writeFileSync('token.json', JSON.stringify(token));
     
     console.log('New access token generated');
-  }}
+  }
+}
 //azeaeazzeazeaeaea
 async function checkAccessToken() {
   try {
