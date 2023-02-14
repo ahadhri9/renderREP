@@ -6,43 +6,34 @@ import ('node-fetch')
 
 const port = process.env.PORT || 3001;
 app.use(express.json())
+var myHeaders = new Headers();
+myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
 
-const CLIENT_ID = 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P';
-const CLIENT_SECRET = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
-async function getNewAccessToken(refreshToken) {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Cookie': 'acessa_session=cf6c3aa21587859cce8fc8f6fc3031e5c9c32f64; HotelLng=en',
-      'host': 'hotels.cloudbeds.com',
-      'Content-Type': 'multipart/form-data'
-    },
-    FormData:{
-      'grant_type': 'refresh_token',
-      'client_id':  'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P',
-      'client_secret': 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl',
-      'refresh_token': refreshToken
-    },
-    credentials: 'include'
-  };
-  
-  const response = await fetch('https://hotels.cloudbeds.com/api/v1.1/access_token', options);
-  const data = await response.json();
-  
-  if (response.ok) {
-    const tokenData = fs.readFileSync('token.json');
-    const token = JSON.parse(tokenData);
+var formdata = new FormData();
+formdata.append("grant_type", "refresh_token");
+formdata.append("client_id", "live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P");
+formdata.append("client_secret", "r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl");
+formdata.append("refresh_token", "lkYSKMpnGbXEukTPJLjwogWipTTFZwj2zVJZSjMzB7A");
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://hotels.cloudbeds.com/api/v1.1/access_token", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
     
-    token.access_token = data.access_token;
-    token.refresh_token = data.refresh_token;
+    token.access_token = result.access_token;
+    token.refresh_token = result.refresh_token;
     
     fs.writeFileSync('token.json', JSON.stringify(token));
     
     console.log('New access token generated');
-  } else {
-    console.error(data.error_description);
-  }
-}
+
 //azeaeazzeazeaeaea
 async function checkAccessToken() {
   try {
