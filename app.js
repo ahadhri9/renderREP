@@ -13,7 +13,7 @@ const clientSecret = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
 const getNewRefreshToken = async (clientId, clientSecret) => {
   const response = await fetch(`https://api.cloudbeds.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=refresh_token`).then(response => {
     console.log(response.headers.get('Content-Type'));
-    return response.json();
+    return response.text();
   })
   .then(data => console.log(data))
   .catch(error => console.error(error));
