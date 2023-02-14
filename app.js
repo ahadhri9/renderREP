@@ -11,7 +11,12 @@ const clientId = 'live1_25713_n8xQ0kTslpOmSW4Zyt7dbj1P';
 const clientSecret = 'r5JKaS7Tc6kOy9q2xIDEHpYjWvuXdBVl';
 //refreshKeys : regarde s'il existe deja un refreshToken, si oui, génére une nouvelle paire de token, sinon exit.
 const getNewRefreshToken = async (clientId, clientSecret) => {
-  const response = await fetch(`https://api.cloudbeds.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=refresh_token`);
+  const response = await fetch(`https://api.cloudbeds.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=refresh_token`).then(response => {
+    console.log(response.headers.get('Content-Type'));
+    return response.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
   const data = await response.json();
   console.log(data)
   return data;
@@ -33,7 +38,7 @@ const checkRefreshToken = async (clientId, clientSecret) => {
     console.error(error);
   }
 }
-getNewRefreshToken(clientId, clientSecret);
+checkRefreshToken(clientId, clientSecret)
 setInterval(()=>checkRefreshToken(clientId, clientSecret),3500000);
 
 
