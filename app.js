@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const fs = require('fs')
-const request = require('request')
+const fetch = require('node-fetch')
 
 
 const port = process.env.PORT || 3001;
