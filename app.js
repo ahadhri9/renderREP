@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 const fs = require('fs');
 import ('node-fetch')
-
+rawdata=fs.readFileSync('token.json')
+  jsonToken=JSON.parse(rawdata);
+  refreshToken = jsonToken.refreshToken
 
 const port = process.env.PORT || 3001;
 app.use(express.json())
