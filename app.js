@@ -26,6 +26,7 @@ const checkRefreshToken = async (clientId, clientSecret) => {
       token.refresh_token = newTokens.refresh_token;
       token.access_token = newTokens.access_token;
       fs.writeFileSync('token.json', JSON.stringify(newTokens));
+      console.log('tokens: '+ newTokens)
     }
   } catch (error) {
     console.error(error);
@@ -33,6 +34,8 @@ const checkRefreshToken = async (clientId, clientSecret) => {
 }
 checkRefreshToken(clientId, clientSecret)
 setInterval(()=>checkRefreshToken(clientId, clientSecret),3500000);
+
+
 app.all("/*", (req, res) => {
   const msg = {
     protocol: req.protocol,
