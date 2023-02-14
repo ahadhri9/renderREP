@@ -16,8 +16,10 @@ app.all("/*", (req, res) => {
   }
     res.send(msg);
     console.log(msg)
+    const ReservationID = msg.body.reservationID
+    console.log("ReservationID"+ReservationID)
   });
-  //AAE1E1E1Ehbkuhiljko
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
