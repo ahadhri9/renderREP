@@ -87,7 +87,7 @@ app.all("/*", async (req, res) => {
       redirect: 'follow'
     };
 
-    ResID= await fetch("https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID=2603367249555", requestOptions)
+    ResID= await fetch("https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID="+ReservationID, requestOptions)
       .then(response => response.text())
       .catch(error => console.log('error', error));
       if (ResID) { 
