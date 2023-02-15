@@ -3,14 +3,16 @@ const express = require("express");
 const app = express();
 const fs = require('fs');
 import ('node-fetch')
+var accessToken;
+var refreshToken;
 
 const port = process.env.PORT || 3001;
 app.use(express.json())
 async function getNewAccessToken() {
   const tokenData=fs.readFileSync('token.json').toString();
   const token = JSON.parse(tokenData);
-  var accessToken = token.access_token;
-  var refreshToken = token.refresh_token;
+  accessToken = token.access_token;
+  refreshToken = token.refresh_token;
 
   var myHeaders = new Headers();
   myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
