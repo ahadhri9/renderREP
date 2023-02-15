@@ -46,9 +46,9 @@ async function checkAccessToken() {
    //  = fs.readFileSync('./token.json');
    const tokenData=fs.readFile('token.json', function (err, data) {
       if (err) throw err;
-      console.log(data);
+      const token = JSON.parse(tokenData);
     });
-    const token = JSON.parse(tokenData);
+   
     
     const accessToken = token.access_token;
     const refreshToken = token.refresh_token;
