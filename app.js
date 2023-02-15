@@ -78,18 +78,18 @@ app.all("/*", async (req, res) => {
     console.log("ReservationID"+ReservationID)
     //function to get the reservationID
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer "+accessToken);
-    myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
+myHeaders.append("Authorization", "Bearer eyJraWQiOiJDWXRkeEVrS0FId0Rob3hCZ05qSlNNeHR4b3RwaEFVX1VBUnNLTlZlemNRIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULlhoQmJXNE5sWXRCX1ZuakpsZnFXQXh6LXZETmZHOTBCY0tueFRyZXVHWDgub2Fyd2p5amQxZnJtU1h5UVY1ZDYiLCJpc3MiOiJodHRwczovL2lkcC5jbG91ZGJlZHMuY29tL29hdXRoMi9hdXNkNWcydTY5QmxKNFdBYzVkNiIsImF1ZCI6Imh0dHBzOi8vaG90ZWxzLmNsb3VkYmVkcy5jb20vYXBpIiwiaWF0IjoxNjc2NDY2ODI5LCJleHAiOjE2NzY0NzA0MjksImNpZCI6ImxpdmUxXzI1NzEzX244eFEwa1RzbHBPbVNXNFp5dDdkYmoxUCIsInVpZCI6IjAwdTZjZmY5d2cyc085UmJQNWQ3Iiwic2NwIjpbIm9mZmxpbmVfYWNjZXNzIl0sImF1dGhfdGltZSI6MTY3NjQ1NDA3Miwic3ViIjoib2JlbHRyYUBhbnNldGVjaC5jb20iLCJhc3NvY2lhdGlvbklkcyI6W10sInByb3BlcnR5SWRzIjpbMjU3MTNdLCJtZmRVc2VySWQiOjM1ODc5OCwidHlwZSI6InByb3BlcnR5In0.SeFwPJNKeggRdFTPwKDAXmIfnO0MbjTUaVzqROcy9YWHvaQcADf7osSKHd_WThlh45vkc_Rx1yr2LmWZKLus0mnTg8rAqseuhAjQUmFDy6s0ZnTSFGLtXDS0j0kp0NlWqtCd0MDEcUwwUbajtahGzXp8mA8iLKgFrP9z3d1POhptYFXrN_tahIASDEtiMo9yPmo1CuZrL7BirsHMpJS_oGYNtH8s4mVmRaJo1rivWlh2rI75d-7QPpRG3iQcR7MpVuUieDDT45PdVKcdjubVBoB95jVdf-GpqvCmyhnNq2lO3oRuKK4WSNPZaiVTcfH1D7iYzy-a1W16DywD0kfoEQ");
+myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; csrf_accessa_cookie=0ac0bba0bffb21019b3ee6bfc978303c; HotelLng=en");
 
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
 
-    ResID= await fetch("https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID="+ReservationID, requestOptions)
-      .then(response => response.text())
-      .catch(error => console.log('error', error));
+ResID= await fetch("https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID=2603367249555", requestOptions)
+  .then(response => response.text())
+  .catch(error => console.log('error', error));
       if (ResID) { 
         console.log("Reservation ID de la mort" + ResID);
       }
