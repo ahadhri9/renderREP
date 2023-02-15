@@ -35,7 +35,7 @@ async function getNewAccessToken(refreshToken) {
     token.access_token = resulut.access_token;
     token.refresh_token = resulut.refresh_token;
     
-    fs.writeFileSync('token.json', JSON.stringify(token));
+    fs.writeFileSync('./token.json', JSON.stringify(token));
     
     console.log('New access token generated');
   }
@@ -43,7 +43,11 @@ async function getNewAccessToken(refreshToken) {
 //azeaeazzeazeaeaea
 async function checkAccessToken() {
   try {
-    const tokenData = fs.readFileSync('token.json');
+   // const tokenData = fs.readFileSync('./token.json');
+    fs.readFile('token.json', function (err, data) {
+      if (err) throw err;
+      console.log(data);
+    });
     const token = JSON.parse(tokenData);
     
     const accessToken = token.access_token;
