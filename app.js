@@ -31,13 +31,15 @@ async function getNewAccessToken(refreshToken) {
     const token = {
       access_token: '',
       refresh_token: ''
-    };    
+    };
+    console.log("before"+fs.readFileSync('token.json').toString())
     console.log("resulut: "+resulut)
     token.access_token = resulut.access_token;
     token.refresh_token = resulut.refresh_token;
     console.log(JSON.stringify(token))
     
     fs.writeFileSync('./token.json', JSON.stringify(token));
+    console.log("after"+fs.readFileSync('token.json').toString())
     
     console.log('New access token generated');
   }
