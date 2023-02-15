@@ -52,7 +52,7 @@ async function checkAccessToken() {
     const token = JSON.parse(tokenData);
     
     const accessToken = token.access_token;
-    const refreshToken = token.refresh_token;
+    var refreshToken = token.refresh_token;
     const expiresIn = token.expires_in;
     const now = new Date();
     
