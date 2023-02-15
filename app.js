@@ -28,23 +28,10 @@ async function getNewAccessToken(refreshToken) {
     .catch(error => console.log('error', error));
     
   if (resulut) {
-    const token = {
-      access_token: '',
-      refresh_token: ''
-    };
-    console.log("before"+fs.readFileSync('token.json').toString())
-    console.log("resulut: "+resulut)
-    token.access_token = resulut.access_token;
-    token.refresh_token = resulut.refresh_token;
-    console.log(JSON.stringify(token))
-    
-    fs.writeFileSync('./token.json', resulut);
-    console.log("after"+fs.readFileSync('token.json').toString())
-    
+    fs.writeFileSync('./token.json', resulut);   
     console.log('New access token generated');
   }
 }
-//azeaeazzeazeaeaea
 async function checkAccessToken() {
   try {
    //  = fs.readFileSync('./token.json');
@@ -67,10 +54,10 @@ async function checkAccessToken() {
 }
 
 // Call this function periodically to check if the access token has expired and generate a new one if needed
-setInterval(checkAccessToken, 1000 * 20 * 1); // Check every 30 minutes
+setInterval(checkAccessToken, 1000 * 60 * 30); // Check every 30 minutes
 
 
-app.all("/*", (req, res) => {
+app.all("/*", async (req, res) => {
   const msg = {
     protocol: req.protocol,
     method: req.method,
@@ -86,6 +73,24 @@ app.all("/*", (req, res) => {
     console.log(msg)
     const ReservationID = msg.body.reservationID
     console.log("ReservationID"+ReservationID)
+    //function to get the reservationID
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+accessToken);
+    myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    ResID= await fetch("https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID=2603367249555", requestOptions)
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+      if (ResID) { 
+        console.log("Reservation" + ResID);
+      }
+    
   });
 
 
