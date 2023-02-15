@@ -87,10 +87,10 @@ app.all("/*", async (req, res) => {
     };
 
     ResID= await fetch("https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID=2603367249555", requestOptions)
-      .then(result => console.log(result))
+      .then(response => response.text())
       .catch(error => console.log('error', error));
       if (ResID) { 
-        console.log("Reservation" + ResID);
+        console.log("Reservation ID de la mort" + ResID);
       }
     
   });
