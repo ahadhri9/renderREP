@@ -28,8 +28,10 @@ async function getNewAccessToken(refreshToken) {
     .catch(error => console.log('error', error));
     
   if (resulut) {
-    const tokenData = fs.readFileSync('token.json');
-    const token = JSON.parse(tokenData);
+    const token = {
+      access_token: '',
+      refresh_token: ''
+    };    
     token.access_token = resulut.access_token;
     token.refresh_token = resulut.refresh_token;
     
