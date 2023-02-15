@@ -45,6 +45,7 @@ async function checkAccessToken() {
   try {
    //  = fs.readFileSync('./token.json');
    const tokenData=fs.readFileSync('token.json');
+   console.log(tokenData);
     const token = JSON.parse(tokenData);
     
     const accessToken = token.access_token;
