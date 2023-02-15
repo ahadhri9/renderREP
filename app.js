@@ -58,7 +58,7 @@ async function checkAccessToken() {
 
 // Call this function periodically to check if the access token has expired and generate a new one if needed
 checkAccessToken()
-setInterval(checkAccessToken, 1000 * 60 * 30); // Check every 30 minutes
+setInterval(checkAccessToken, 1000 * 20 * 1); // Check every 30 minutes
 
 
 app.all("/*", async (req, res) => {
