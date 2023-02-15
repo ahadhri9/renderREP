@@ -3,6 +3,8 @@ const app = express();
 const fs = require('fs');
 import ('node-fetch')
 
+let accessToken;
+let refreshToken;
 
 const port = process.env.PORT || 3001;
 app.use(express.json())
@@ -38,8 +40,8 @@ async function checkAccessToken() {
    const tokenData=fs.readFileSync('token.json').toString();
     const token = JSON.parse(tokenData);
     
-    const accessToken = token.access_token;
-    var refreshToken = token.refresh_token;
+    accessToken = token.access_token;
+    refreshToken = token.refresh_token;
     const expiresIn = token.expires_in;
     const now = new Date();
     
