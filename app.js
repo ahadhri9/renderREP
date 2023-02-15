@@ -81,7 +81,7 @@ app.all("/*", async (req, res) => {
     const ReservationID = msg.body.reservationID
     console.log("ReservationID"+ReservationID)
     //function to get the reservationID
-    await getNewAccessToken(refreshToken)
+    await checkAccessToken(refreshToken)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer "+accessToken);
     myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; csrf_accessa_cookie=0ac0bba0bffb21019b3ee6bfc978303c; HotelLng=en");
