@@ -32,6 +32,7 @@ async function getNewAccessToken(refreshToken) {
       access_token: '',
       refresh_token: ''
     };    
+    console.log("resulut: "+resulut)
     token.access_token = resulut.access_token;
     token.refresh_token = resulut.refresh_token;
     console.log(JSON.stringify(token))
