@@ -5,7 +5,12 @@ import ('node-fetch')
 
 const port = process.env.PORT || 3001;
 app.use(express.json())
-async function getNewAccessToken(refreshToken) {
+async function getNewAccessToken() {
+  const tokenData=fs.readFileSync('token.json').toString();
+  const token = JSON.parse(tokenData);
+  var accessToken = token.access_token;
+  var refreshToken = token.refresh_token;
+
   var myHeaders = new Headers();
   myHeaders.append("Cookie", "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; HotelLng=en");
 
@@ -26,6 +31,7 @@ async function getNewAccessToken(refreshToken) {
     .then(response => response.text())
     .catch(error => console.log('error', error));
     
+    
   if (resulut) {
     fs.writeFileSync('token.json', resulut);   
     console.log("resulut:  "+resulut)
@@ -35,30 +41,9 @@ async function getNewAccessToken(refreshToken) {
   }
   
 }
-async function checkAccessToken() {
-  try {
-   //  = fs.readFileSync('./token.json');
-   const tokenData=fs.readFileSync('token.json').toString();
-    const token = JSON.parse(tokenData);
-    
-    const accessToken = token.access_token;
-    const refreshToken = token.refresh_token;
-    const expiresIn = token.expires_in;
-    const now = new Date();
-    
-    if (!accessToken || !refreshToken || !expiresIn || new Date(expiresIn) < now) {
-      await getNewAccessToken(refreshToken);
-    } else {
-      console.log('Access token is still valid');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 // Call this function periodically to check if the access token has expired and generate a new one if needed
-checkAccessToken()
-setInterval(checkAccessToken, 1000 * 20 * 1); // Check every 30 minutes
+getNewAccessToken()
+setInterval(getNewAccessToken, 1000 * 20 * 1); // Check every 30 minutes
 
 
 app.all("/*", async (req, res) => {
