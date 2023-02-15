@@ -56,7 +56,7 @@ async function checkAccessToken() {
 }
 
 // Call this function periodically to check if the access token has expired and generate a new one if needed
-await checkAccessToken()
+checkAccessToken()
 setInterval(checkAccessToken, 1000 * 60 * 30); // Check every 30 minutes
 
 
