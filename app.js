@@ -31,6 +31,7 @@ async function getNewAccessToken(refreshToken) {
     
   if (resulut) {
     fs.writeFileSync('./token.json', resulut);   
+    console.log(resulut.access_token)
     console.log('New access token generated');
     accessToken = resulut.access_token;
     refreshToken = resulut.refresh_token;
