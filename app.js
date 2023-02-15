@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
 const fs = require('fs');
@@ -36,8 +37,9 @@ async function getNewAccessToken() {
     fs.writeFileSync('token.json', resulut);   
     //console.log("resulut:  "+resulut)
     console.log('New access token generated');
-    accessToken = resulut.access_token;
-    refreshToken = resulut.refresh_token;
+    const resultat = resulut.json()
+    accessToken = resultat.access_token;
+    refreshToken = resultat.refresh_token;
     console.log("accessToken Try"+accessToken)
   }
   
