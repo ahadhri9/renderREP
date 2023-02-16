@@ -40,7 +40,7 @@ async function getNewAccessToken() {
 
     const AccessToken = jsonObject.access_token;
     refreshToken = resultat2.refresh_token;
-    console.log("accessToken Try"+AccessToken)
+    console.log(AccessToken.toString())
     
     
   if (resulut) {
