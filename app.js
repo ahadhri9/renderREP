@@ -36,12 +36,12 @@ async function getNewAccessToken() {
     const resultat1 = JSON.stringify(resulut);
     const resultat2 = JSON.parse(resultat1);
     console.log(resultat2);
-    const jsonObject = JSON.parse(resultat1);
-
-    const AccessToken = jsonObject.access_token;
+    accessToken= resultat2.access_token;
     refreshToken = resultat2.refresh_token;
-    console.log(AccessToken.toString())
-    
+    console.log("accessToken");
+    console.log(accessToken);
+    console.log("refreshToken");
+    console.log(refreshToken);
     
   if (resulut) {
     fs.writeFileSync('token.json', resulut);   
