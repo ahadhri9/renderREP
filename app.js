@@ -11,7 +11,6 @@ app.use(express.json())
 async function getNewAccessToken() {
   const tokenData=fs.readFileSync('token.json').toString();
   const token = JSON.parse(tokenData);
-  accessToken = token.access_token;
   refreshToken = token.refresh_token;
 
   var myHeaders = new Headers();
@@ -34,6 +33,8 @@ async function getNewAccessToken() {
     .then(response => response.text())
     .catch(error => console.log('error', error));
     const resultat1 = JSON.parse(resulut);
+    accessToken=resultat1.access_token
+   
     
   if (resulut) {
     fs.writeFileSync('token.json', resulut);   
