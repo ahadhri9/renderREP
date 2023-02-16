@@ -82,16 +82,16 @@ app.all("/*", async (req, res) => {
     redirect: "follow",
   };
 
-  const reservation = await fetch(
+  const res = await fetch(
     "https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID=" +
       ReservationID,
     requestOptions
   )
     .then((response) => response.text())
     .catch((error) => console.log("error", error));
-  if (reservation) {
-    console.log("Reservation: " + reservation);
-
+  if (res) {
+    console.log("Reservation: " + res);
+    const reservation = JSON.parse(res);
     const guest = Object.values(reservation.data.guestList)[0];
     console.log("guest:   " + guest);
   }
