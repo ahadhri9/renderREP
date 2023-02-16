@@ -33,7 +33,7 @@ async function getNewAccessToken() {
   resulut = await fetch("https://hotels.cloudbeds.com/api/v1.1/access_token", requestOptions)
     .then(response => response.text())
     .catch(error => console.log('error', error));
-    const resultat = await resulut.json()
+    const resultat = JSON.stringify(resulut)
     accessToken = resultat.access_token;
     refreshToken = resultat.refresh_token;
     console.log("accessToken Try"+accessToken)
