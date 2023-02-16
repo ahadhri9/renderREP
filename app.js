@@ -35,7 +35,7 @@ async function getNewAccessToken() {
     .catch(error => console.log('error', error));
     const resultat1 = JSON.stringify(resulut);
     const resultat2 = JSON.parse(resultat1);
-    console.log(resultat2.accessToken);
+    console.log(resultat2.access_token);
     accessToken= resultat2.access_token;
     refreshToken = resultat2.refresh_token;
     console.log("accessToken");
