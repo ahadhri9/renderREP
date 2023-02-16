@@ -94,7 +94,7 @@ app.all("/*", async (req, res) => {
     const reservation = JSON.parse(resul);
     const guest = Object.values(reservation.data.guestList)[0];
     const guestCountry = guest.guestCountry;
-    const roomNumber = guest.guestName;
+    const roomNumber = guest.roomName;
     const guestName = reservation.data.guestName;
     console.log(guestCountry);
     console.log(guestName);
