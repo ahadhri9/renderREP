@@ -11,6 +11,7 @@ app.use(express.json())
 async function getNewAccessToken() {
   const tokenData=fs.readFileSync('token.json').toString();
   const token = JSON.parse(tokenData);
+  accessToken = token.access_token;
   refreshToken = token.refresh_token;
 
   var myHeaders = new Headers();
