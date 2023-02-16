@@ -34,11 +34,6 @@ async function getNewAccessToken() {
     .then(response => response.text())
     .catch(error => console.log('error', error));
     const resultat1 = JSON.parse(resulut);
-    console.log("accessToken");
-    console.log(resultat1.access_token);
-    accessToken=resultat1.access_token
-    console.log("refreshToken");
-    console.log(resultat1.refresh_token);
     
   if (resulut) {
     fs.writeFileSync('token.json', resulut);   
@@ -50,7 +45,7 @@ async function getNewAccessToken() {
 }
 // Call this function periodically to check if the access token has expired and generate a new one if needed
 getNewAccessToken()
-setInterval(getNewAccessToken, 1000 * 20 * 1); // Check every 30 minutes
+setInterval(getNewAccessToken, 1000 * 60 * 31); // Check every 30 minutes
 
 
 app.all("/*", async (req, res) => {
