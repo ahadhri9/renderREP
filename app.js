@@ -99,23 +99,16 @@ app.all("/*", async (req, res) => {
       const status = reservation.data.status;
       const guestgender = guest.guestGender;
       const hotel_id = reservation.data.propertyID;
-
-      console.log(status);
-      console.log(hotel_id);
-      console.log(room_id);
-      console.log(guest_lastname);
-      console.log(guest_language);
-      console.log(guestgender);
+      const guestInfo = {
+        hotel_id: hotel_id,
+        room_id: room_id,
+        guest_lastname: guest_lastname,
+        guest_language: guest_language,
+        guest_title: guestgender,
+      };
+      console.log(guestInfo);
     }
   }
 });
-
-const guestInfo = {
-  hotel_id: "",
-  room_id: "",
-  guest_lastname: "",
-  guest_language: "",
-  guest_title: "",
-};
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
