@@ -91,20 +91,22 @@ app.all("/*", async (req, res) => {
   if (resul) {
     console.log("Reservation: " + resul);
     const reservation = JSON.parse(resul);
-    const guest = Object.values(reservation.data.guestList)[0];
-    const guest_language = guest.guestCountry;
-    const room_id = guest.roomName;
-    const guest_lastname = reservation.data.guestName;
-    const status = reservation.data.status;
-    const guestgender = guest.guestGender;
-    const hotel_id = reservation.data.propertyID;
+    if (reservation.success == true) {
+      const guest = Object.values(reservation.data.guestList)[0];
+      const guest_language = guest.guestCountry;
+      const room_id = guest.roomName;
+      const guest_lastname = reservation.data.guestName;
+      const status = reservation.data.status;
+      const guestgender = guest.guestGender;
+      const hotel_id = reservation.data.propertyID;
 
-    console.log(status);
-    console.log(hotel_id);
-    console.log(room_id);
-    console.log(guest_lastname);
-    console.log(guest_language);
-    console.log(guestgender);
+      console.log(status);
+      console.log(hotel_id);
+      console.log(room_id);
+      console.log(guest_lastname);
+      console.log(guest_language);
+      console.log(guestgender);
+    }
   }
 });
 
