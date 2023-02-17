@@ -1,4 +1,3 @@
-const { response } = require("express");
 const express = require("express");
 const app = express();
 const fs = require("fs");
@@ -93,13 +92,28 @@ app.all("/*", async (req, res) => {
     console.log("Reservation: " + resul);
     const reservation = JSON.parse(resul);
     const guest = Object.values(reservation.data.guestList)[0];
-    const guestCountry = guest.guestCountry;
-    const roomNumber = guest.roomName;
-    const guestName = reservation.data.guestName;
-    console.log(guestCountry);
-    console.log(guestName);
-    console.log(roomNumber);
+    const guest_language = guest.guestCountry;
+    const room_id = guest.roomName;
+    const guest_lastname = reservation.data.guestName;
+    const status = reservation.data.status;
+    const guestgender = guest.guestGender;
+    const hotel_id = reservation.data.propertyID;
+
+    console.log(status);
+    console.log(hotel_id);
+    console.log(room_id);
+    console.log(guest_lastname);
+    console.log(guest_language);
+    console.log(guestgender);
   }
 });
+
+const guestInfo = {
+  hotel_id: "",
+  room_id: "",
+  guest_lastname: "",
+  guest_language: "",
+  guest_title: "",
+};
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
