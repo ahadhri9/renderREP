@@ -88,7 +88,7 @@ app.all("/*", async (req, res) => {
   )
     .then((response) => response.text())
     .catch((error) => console.log("error", error));
-  if (resul) {
+  if (resul != "undefined") {
     console.log("Reservation: " + resul);
     const reservation = JSON.parse(resul);
     const guest = Object.values(reservation.data.guestList)[0];
