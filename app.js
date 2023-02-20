@@ -35,15 +35,14 @@ async function getNewAccessToken() {
   resulut = await fetch(
     "https://hotels.cloudbeds.com/api/v1.1/access_token",
     requestOptions
-  )
-    .then((response) => response.text())
-    .catch((error) => console.log("error", error));
+  ).then((response) => response.text());
+
   const resultat1 = JSON.parse(resulut);
   accessToken = resultat1.access_token;
 
   if (resulut) {
     fs.writeFileSync("token.json", resulut);
-    //console.log("resulut:  "+resulut)
+
     console.log("New access token generated");
   }
 }
@@ -64,7 +63,6 @@ app.all("/*", async (req, res) => {
     body: req.body,
   };
   res.send(msg);
-  console.log(msg);
   const ReservationID = msg.body.reservationID;
   console.log("ReservationID" + ReservationID);
   //function to get the reservationID
@@ -85,11 +83,8 @@ app.all("/*", async (req, res) => {
     "https://hotels.cloudbeds.com/api/v1.1/getReservation?reservationID=" +
       ReservationID,
     requestOptions
-  )
-    .then((response) => response.text())
-    .catch((error) => console.log("error", error));
+  );
   if (resul) {
-    console.log("Reservation: " + resul);
     const reservation = JSON.parse(resul);
     if (reservation.success == true) {
       const guest = Object.values(reservation.data.guestList)[0];
@@ -125,14 +120,10 @@ app.all("/*", async (req, res) => {
         "https://hotels.cloudbeds.com/api/v1.1//getHotels?propertyID=" +
           hotel_id,
         requestOptions
-      )
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+      );
       const hotel = JSON.parse(hotelinfo);
       const hotelname = hotel.data.propertyName;
       console.log(hotelname);
     }
   }
 });
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
