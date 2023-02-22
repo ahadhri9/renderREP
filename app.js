@@ -165,13 +165,12 @@ function makeQuery(data) {
 }
 
 //function to send the object query as a Query in a GET request
-// function sendQuery(query) {
-//   const queryString = new URLSearchParams(query).toString();
-//   fetch(`https://example.com/api/endpoint?${queryString}`)
-//     .then((response) => response.json())
-//     .then((data) => console.log(data))
-//     .catch((error) => console.error(error));
-// }
+function sendQuery(query) {
+  const queryString = new URLSearchParams(query).toString();
+  fetch(
+    `https://hospitality.dev.ansetech.com/api/interface${queryString}`
+  ).then((response) => response.json());
+}
 app.use(express.json());
 //get a msg everytime a webhook is received
 app.all("/*", async (req, res) => {
