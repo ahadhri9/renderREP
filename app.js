@@ -1,5 +1,6 @@
 import("node-fetch");
 
+const { query } = require("express");
 const express = require("express");
 const app = express();
 const fs = require("fs");
@@ -55,7 +56,8 @@ async function getNewAccessToken() {
 //function to use the access token to get all the info on the reservation and the hotel
 async function getInfo(reservationID) {
   const guestInfo = await getGuestInfo(reservationID);
-  getHotelName(guestInfo.hotel_id);
+  const datal = await getHotelName(guestInfo);
+  makeQuery(datal);
 }
 
 async function getGuestInfo(reservationID) {
@@ -92,17 +94,18 @@ async function getGuestInfo(reservationID) {
   const hotel_id = reservation.data.propertyID;
   const guestInfo = {
     status: status,
-    hotel_id: hotel_id,
-    room_id: room_id,
-    guest_lastname: guest_lastname,
-    guest_language: guest_language,
-    guest_title: guestgender,
+    hotelId: hotel_id,
+    SI: null,
+    RN: room_id,
+    GN: guest_lastname,
+    GL: guest_language,
+    GQ: guestgender,
   };
   console.log(guestInfo);
   return guestInfo;
 }
 
-async function getHotelName(hotelId) {
+async function getHotelName(guestInfo) {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer " + accessToken);
   myHeaders.append(
@@ -117,13 +120,18 @@ async function getHotelName(hotelId) {
   };
 
   const hotelinfo = await fetch(
-    "https://hotels.cloudbeds.com/api/v1.1//getHotels?propertyID=" + hotelId,
+    "https://hotels.cloudbeds.com/api/v1.1//getHotels?propertyID=" +
+      guestInfo.hotelId,
     requestOptions
   );
 
   const hotel = JSON.parse(hotelinfo);
   const hotelname = hotel.data.propertyName;
-  console.log(hotelname);
+
+  let data = new Map(guestInfo);
+  data.SI = hotelname;
+  console.log(data);
+  return data;
 }
 
 //function that defines the order of the functions getInfo() and getNewAccessToken()
@@ -132,6 +140,38 @@ async function order(reservationID) {
   getInfo(reservationID);
 }
 
+//function that uses the status of the guestInfo object to make a query with the correct values to interface.js
+function makeQuery(data) {
+  if (data.status == checked_in) {
+    const queryl = {
+      RI: GI,
+      SI: data.SI,
+      RN: data.RN,
+      GN: data.GN,
+      GQ: data.GQ,
+      GL: data.GL,
+    };
+    return queryl;
+    console.log(queryl);
+  } else if (data.status == checked_out) {
+    const queryl = {
+      RI: GO,
+      SI: data.SI,
+      RN: data.RN,
+    };
+    return queryl;
+    console.log(queryl);
+  }
+}
+
+//function to send the object query as a Query in a GET request
+// function sendQuery(query) {
+//   const queryString = new URLSearchParams(query).toString();
+//   fetch(`https://example.com/api/endpoint?${queryString}`)
+//     .then((response) => response.json())
+//     .then((data) => console.log(data))
+//     .catch((error) => console.error(error));
+// }
 app.use(express.json());
 //get a msg everytime a webhook is received
 app.all("/*", async (req, res) => {
