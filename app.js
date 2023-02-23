@@ -99,31 +99,31 @@ app.all("/*", async (req, res) => {
         guest_title: guestgender,
       };
       console.log(guestInfo);
-      // var myHeaders = new Headers();
-      // myHeaders.append("Authorization", "Bearer " + accessToken);
-      // myHeaders.append(
-      //   "Cookie",
-      //   "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; csrf_accessa_cookie=aa03c1f2b14d99081cb6cab7518a5e80; HotelLng=en"
-      // );
+      var myHeaders2 = new Headers();
+      myHeaders2.append("Authorization", "Bearer " + accessToken);
+      myHeaders2.append(
+        "Cookie",
+        "acessa_session=a5de10117e01531cc0fb1c73c6308150080aa6ef; acessa_session_enabled=1; csrf_accessa_cookie=aa03c1f2b14d99081cb6cab7518a5e80; HotelLng=en"
+      );
 
-      // var requestOptions = {
-      //   method: "GET",
-      //   headers: myHeaders,
-      //   redirect: "follow",
-      // };
+      var requestOptions2 = {
+        method: "GET",
+        headers: myHeaders2,
+        redirect: "follow",
+      };
 
-      // const hotel = fetch(
-      //   "https://hotels.cloudbeds.com/api/v1.1//getHotels?propertyID=" +
-      //     hotel_id,
-      //   requestOptions
-      // )
-      //   .then((result) => console.log(result))
-      //   .catch((error) => console.log("error", error));
-      // const hotelName = JSON.parse(hotel);
-      // const Hotell = hotelName.data.propertyName;
-      // console.log(Hotell);
+      const hotel = await fetch(
+        "https://hotels.cloudbeds.com/api/v1.1//getHotels?propertyID=" +
+          hotel_id,
+        requestOptions2
+      )
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+      const hotelName = JSON.parse(hotel);
+      const Hotell = hotelName.data.propertyName;
+      console.log(Hotell);
 
-      // console.log(hotel);
+      console.log(hotel);
       // switch (guestInfo.status) {
       //   case "checked_out":
       //     console.log(guestInfo);
