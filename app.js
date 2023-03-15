@@ -133,5 +133,21 @@ app.all("/*", async (req, res) => {
       // }
     }
   }
+
+  fetch('https://hospitality.dev.ansetech.com:7001/api/interface', {
+  method: 'POST',
+  body: JSON.stringify(guest_info),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => {
+  console.log(response);
+})
+.catch(error => {
+  console.error(error);
+});
+
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+  
