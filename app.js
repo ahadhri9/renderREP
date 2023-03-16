@@ -91,12 +91,12 @@ app.all("/*", async (req, res) => {
       const guestgender = guest.guestGender;
       const hotel_id = reservation.data.propertyID;
       const guestInfo = {
-        status: status,
-        hotel_id: hotel_id,
-        room_id: room_id,
-        guest_lastname: guest_lastname,
-        guest_language: guest_language,
-        guest_title: guestgender,
+        RI: status,
+        SI: hotel_id,
+        RN: room_id,
+        GN: guest_lastname,
+        GL: guest_language,
+        GQ: guestgender,
       };
       console.log(guestInfo);
       var myHeaders2 = new Headers();
@@ -124,16 +124,17 @@ app.all("/*", async (req, res) => {
       console.log(Hotell);
 
       console.log(hotel);
-      // switch (guestInfo.status) {
-      //   case "checked_out":
-      //     console.log(guestInfo);
-      //     break;
-      //   case "checkin":
-      //     console.log(guestInfo)
-      // }
     }
   }
-
+async function sendData(guestInfo){
+  switch(guestInfo.RI) {
+  case checked_in:
+    guestInfo.RI = "GI";
+    break;
+  case checked_out:
+    RI = "GO";
+    break;
+  }
   fetch('https://hospitality.dev.ansetech.com:7001/api/interface', {
   method: 'POST',
   body: JSON.stringify(guest_info),
@@ -147,7 +148,8 @@ app.all("/*", async (req, res) => {
 .catch(error => {
   console.error(error);
 });
-
+}
+sendData(guestInfo)
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
   
