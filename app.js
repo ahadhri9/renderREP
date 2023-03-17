@@ -79,11 +79,11 @@ async function getReservation(ReservationID){
 //function to send the data to interface.js
 async function sendData(guestInfo){
   switch(guestInfo.RI) {
-  case checked_in:
+  case 'checked_in':
     guestInfo.RI = "GI";
     guestInfo.SI = "Marianne"
     break;
-  case checked_out:
+  case 'checked_out':
     guestInfo.RI = "GO";
     guestInfo.SI = "Marianne"
     break;
