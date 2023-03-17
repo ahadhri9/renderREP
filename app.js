@@ -86,9 +86,11 @@ async function sendData(guestInfo){
   case 'checked_out':
     guestInfo.RI = "GO";
     guestInfo.SI = "Marianne"
+    //TODO change the json object
+    
     break;
   }
-  fetch('https://hospitality.dev.ansetech.com:7001/api/interface', {
+  fetch('https://hospitality.dev.ansetech.com:7002/api/interface', {
   method: 'POST',
   body: JSON.stringify(guestInfo),
   headers: {
