@@ -69,10 +69,10 @@ async function getReservation(ReservationID){
         RN: room_id,
         GN: guest_lastname,
         GL: guest_language,
-        GQ: guestgender,
+        GQ: guest_gender,
       };
       console.log(guestInfo);
-      return guestInfo
+      return guestInfo;
     }
   }
 }
