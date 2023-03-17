@@ -72,8 +72,8 @@ async function getReservation(ReservationID){
         GQ: guestgender,
       };
       console.log(guestInfo);
+      return guestInfo
     }
-    return guestInfo
   }
 }
 //function to send the data to interface.js
