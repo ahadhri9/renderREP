@@ -30,7 +30,7 @@ app.all("/*", async (req, res) => {
 
 //function to call the functions in order
 async function order(ReservationID){
-  await getReservation(ReservationID);
+  var guestInfo = await getReservation(ReservationID);
   sendData(guestInfo)
 }
 //function to get the reservation details
@@ -54,7 +54,6 @@ async function getReservation(ReservationID){
     .then((response) => response.text())
     .catch((error) => console.log("error", error));
   if (resul) {
-    console.log("Reservation: " + resul);
     const reservation = JSON.parse(resul);
     if (reservation.success == true) {
       const guest = Object.values(reservation.data.guestList)[0];
@@ -73,8 +72,8 @@ async function getReservation(ReservationID){
         GQ: guestgender,
       };
       console.log(guestInfo);
-      return guestInfo
     }
+    return guestInfo
   }
 }
 //function to send the data to interface.js
