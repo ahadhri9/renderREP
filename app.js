@@ -90,7 +90,7 @@ async function sendData(guestInfo){
   }
   fetch('https://hospitality.dev.ansetech.com:7001/api/interface', {
   method: 'POST',
-  body: JSON.stringify(guest_info),
+  body: JSON.stringify(guestInfo),
   headers: {
     'Content-Type': 'application/json'
   }
