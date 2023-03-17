@@ -71,7 +71,7 @@ async function getReservation(ReservationID){
         GL: guest_language,
         GQ: guestgender,
       };
-      console.log(guestInfo);
+      
       return guestInfo;
     }
   }
@@ -82,10 +82,12 @@ async function sendData(guestInfo){
   case 'checked_in':
     guestInfo.RI = "GI";
     guestInfo.SI = "Marianne"
+    console.log(guestInfo);
     break;
   case 'checked_out':
     guestInfo.RI = "GO";
     guestInfo.SI = "Marianne"
+    console.log(guestInfo);
     //TODO change the json object
 
     break;
