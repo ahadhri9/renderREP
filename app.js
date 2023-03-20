@@ -92,16 +92,38 @@ async function sendData(guestInfo){
 
     break;
   }
-  fetch('http://hospitality.dev.ansetech.com:7002/api/interface', {
-  method: 'POST',
-  body: JSON.stringify(guestInfo),
+  // Define the URL and parameters as separate variables
+const url = "http://hospitality.dev.ansetech.com:7002/api/interface";
+const params = {
+  SI: guestInfo.SI,
+  RI: guestInfo.RI,
+  GT: guestInfo.GT,
+  RN: guestInfo.RN,
+  GN: guestInfo.GN,
+  GL: guestInfo.GL,
+  TV: "TX"
+};
+
+// Create the query string by joining the parameters with "&"
+const queryString = Object.entries(params)
+  .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+  .join("&");
+
+// Create the requestOptions object with the method, headers, and redirect options
+const requestOptions = {
+  method: 'GET',
   headers: {
     'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log(response);
-})
+  },
+  redirect: 'follow'
+};
+
+// Make the fetch request with the URL and query string as the endpoint
+fetch(`${url}?${queryString}`, requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
 }
 //function to get the new accesstoken and refreshtoken
 async function getNewAccessToken() {
