@@ -101,7 +101,10 @@ const params = {
   RN: guestInfo.RN,
   GN: guestInfo.GN,
   GL: guestInfo.GL,
-  TV: "TX"
+  TV: "TX",
+  GQ:"-",
+  GF:"",
+
 };
 
 // Create the query string by joining the parameters with "&"
