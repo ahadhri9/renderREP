@@ -93,7 +93,7 @@ async function sendData(guestInfo){
     break;
   }
   // Define the URL and parameters as separate variables
-const url = "http://hospitality.dev.ansetech.com:7002/api/interface";
+const url = "http://hospitality.ansetech.com:7001/api/interface";
 const params = {
   SI: guestInfo.SI,
   RI: guestInfo.RI,
